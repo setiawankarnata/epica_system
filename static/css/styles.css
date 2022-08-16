@@ -1,0 +1,28 @@
+body {
+    font-size: 8pt;
+}
+
+#judul {
+    font-size: 18pt;
+!important;
+    font-weight: bold;
+!important;
+}
+
+#participant {
+    font-size: 8pt;
+!important;
+}
+
+#signature {
+    break-before: page;
+}
+
+header div {
+  height: 3cm;
+  padding: 5mm 5mm 12mm 5mm;
+}
+
+header img {
+  width: 3cm;
+}

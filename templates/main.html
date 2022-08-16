@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Open%20Sans.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Roboto.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome5-overrides.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Black-Navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Footer-Basic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Footer-Clean.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Footer-Dark.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Login-Form-Basic.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <!-- <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script> -->
+</head>
+
+<body style="background: var(--bs-white);">
+    {% include 'navbar.html' %}
+    {% include 'show_message.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+</body>
+
+</html>

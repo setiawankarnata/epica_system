@@ -1,0 +1,14 @@
+<body>
+    <div>
+        <div class="container mt-5">
+            <h3>Dear Mr/Mrs. <strong>{{ name.first_name }} {{ name.last_name }},</strong></h3>
+            <p>Thank you for attending Meeting BOD {{ meet.meeting2company.short_code }},&nbsp;on, {{ meet.meeting_date|date:"l, d M Y" }}, {{ meet.start_time | time:"g A" }} - {{ meet.start_time | time:"g A" }}.&nbsp;</p>
+            <p>Please find below our Minutes of Meeting (MoM) as per attached.</p>
+            <p>Please signed the MoM file (pdf) if you have no further comments.</p>
+            <p>Thank you for your participating at this meeting.</p>
+            <br><br>
+            <p class="lead fw-bold">Regards,</p>
+            <p class="lead fw-bold"><strong>CPMD Division</strong></p>
+        </div>
+    </div>
+</body>

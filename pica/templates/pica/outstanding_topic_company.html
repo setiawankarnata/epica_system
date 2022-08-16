@@ -1,0 +1,371 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Outstanding PICA All Groups{% endblock %}
+{% block content %}
+    <div class="mt-3">
+        <div class="container shadow" style="background: var(--bs-cyan);">
+            <div class="row mt-5" style="background: #ffffff;">
+                <div class="col-sm-6 align-self-center">
+                    <h3 class="fw-bolder" style="text-align: left;">Outstanding PICA All Groups</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section>
+        <div>
+            <div class="container mt-5">
+                <div class="accordion" role="tablist" id="accordion-1">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-1" aria-expanded="false"
+                                    aria-controls="accordion-1 .item-1">TTA
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse item-1" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if tta %}
+                                    {% for topic in tta %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-4">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-2"
+                                    aria-expanded="true" aria-controls="accordion-1 .item-2">ABB
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse show item-2" role="tabpanel"
+                             data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if abb %}
+                                    {% for topic in abb %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-4">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-3" aria-expanded="false"
+                                    aria-controls="accordion-1 .item-3">SMM
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if smm %}
+                                    {% for topic in smm %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-4">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-4" aria-expanded="false"
+                                    aria-controls="accordion-1 .item-4">TOP
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse item-4" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if top %}
+                                    {% for topic in top %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-4">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-5" aria-expanded="false"
+                                    aria-controls="accordion-1 .item-5">PMM
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse item-5" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if pmm %}
+                                    {% for topic in pmm %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-4">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" role="tab">
+                            <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                    data-bs-target="#accordion-1 .item-5" aria-expanded="false"
+                                    aria-controls="accordion-1 .item-5">KCM
+                            </button>
+                        </h2>
+                        <div class="accordion-collapse collapse item-5" role="tabpanel" data-bs-parent="#accordion-1">
+                            <div class="accordion-body">
+                                {% if kcm %}
+                                    {% for topic in kcm %}
+                                        <p class="lead fs-6 mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-check-circle">
+                                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                                </path>
+                                                <path
+                                                        d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                                </path>
+                                            </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                            Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                            &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                           href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                 fill="currentColor"
+                                                 viewBox="0 0 16 16" class="bi bi-search fs-5">
+                                                <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                </path>
+                                            </svg>
+                                            Details</a>
+                                        </p>
+                                    {% endfor %}
+                                {% else %}
+                                    <p class="mb-0 fs-6">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;There is no outstanding PICA
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" role="tab">
+                        <button class="accordion-button collapsed" data-bs-toggle="collapse"
+                                data-bs-target="#accordion-1 .item-5" aria-expanded="false"
+                                aria-controls="accordion-1 .item-5">Others
+                        </button>
+                    </h2>
+                    <div class="accordion-collapse collapse item-5" role="tabpanel" data-bs-parent="#accordion-1">
+                        <div class="accordion-body">
+                            {% if other %}
+                                {% for topic in other %}
+                                    <p class="lead fs-6 mb-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-check-circle">
+                                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z">
+                                            </path>
+                                            <path
+                                                    d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                            </path>
+                                        </svg>&nbsp;{{ topic.topic_name }} - {{ topic.topic2department.name }} (Due
+                                        Date : {{ topic.due_date|date:"l, d M Y" }})&nbsp;
+                                        &nbsp;&nbsp;<a class="link-success text-decoration-none"
+                                                       href="{% url 'pica:dashboard_pica_detail' topic.pk topic.topic2company.short_code from_to %}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                             fill="currentColor"
+                                             viewBox="0 0 16 16" class="bi bi-search fs-5">
+                                            <path
+                                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                            </path>
+                                        </svg>
+                                        Details</a>
+                                    </p>
+                                {% endfor %}
+                            {% else %}
+                                <p class="mb-0 fs-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                                         viewBox="0 0 16 16" class="bi bi-check-circle">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                                        <path
+                                                d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z">
+                                        </path>
+                                    </svg>&nbsp;There is no outstanding PICA
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

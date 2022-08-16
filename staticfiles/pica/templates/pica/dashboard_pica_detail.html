@@ -1,0 +1,105 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Dashboard PICA Detail{% endblock %}
+{% block content %}
+<div class="mt-3">
+    <div class="container shadow" style="background: var(--bs-cyan);">
+        <div class="row" style="background: #ffffff;">
+            <div class="col-sm-6 align-self-center">
+                <h4 style="text-align: left;">Dashboard PICA Detail</h4>
+            </div>
+            <div class="col-sm-6" style="text-align: right;"><img src="{{ company.logo.url }}" width="150px"></div>
+        </div>
+    </div>
+</div><!-- Start: Topics -->
+<section>
+    <div class="mt-4">
+        <div class="container">
+            <h4>Issues</h4>
+            <p class="fs-5">{{ topic.topic_name }}</p>
+            <h4>Info</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="fs-6">Issue Date:</td>
+                            <td class="fs-6">{{ topic.issue_date|date:"l, d M Y" }}</td>
+                            <td class="fs-6">Due date:</td>
+                            <td class="fs-6">{{ topic.due_date|date:"l, d M Y" }}</td>
+                            <td class="fs-6">New due date:</td>
+                            <td class="fs-6">{{ topic.new_due_date|date:"l, d M Y" }}</td>
+                        </tr>
+                        <tr>
+                            <td class="fs-6">Meeting Date:</td>
+                            <td class="fs-6">{{ meet.meeting_date|date:"l, d M Y" }}</td>
+                            <td class="fs-6">Department:</td>
+                            <td class="fs-6">{{ topic.topic2department.name }}</td>
+                            <td class="fs-6">PIC:</td>
+                            <td class="fs-6">
+                                {% if topic.topic2user %}
+                                {% for pic in topic.topic2user.all %}
+                                {{ pic.first_name }} {{ pic.last_name }},
+                                {% endfor %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h4>Problem/Info</h4>
+            <div class="row">
+                <div class="col">
+                    <p class="fs-6" style="width: 100%;" disabled="">{{ topic.problem_info|safe }}</p>
+                </div>
+            </div>
+            <h4 class="mt-3">Action</h4>
+            <div class="row">
+                <div class="col">
+                    <p class="fs-6" style="width: 100%;" disabled="">{{ topic.action|safe }}</p>
+                </div>
+            </div>
+            <h4 class="mt-3">PIC Activity</h4>
+            <div class="table-responsive mb-5">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th class="fs-6">Date</th>
+                            <th class="fs-6">PIC</th>
+                            <th class="fs-6">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if activities %}
+                        {% for activity in activities %}
+                        <tr>
+                            <td class="fs-6">{{ activity.activity_date|date:"l, d M Y" }}</td>
+                            <td class="fs-6">
+                                {{ activity.activity2user.first_name }} {{ activity.activity2user.last_name }}
+                            </td>
+                            <td class="fs-6">{{ activity.action_short_description }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="row mb-5">
+                <div class="col text-center">
+                    {% if from_to == 1 %}
+                    <a class="btn btn-danger btn-lg border rounded-pill" role="button"
+                        href="{% url 'pica:outstanding_all_pica' %}">Back to
+                        previous</a>
+                    {% else %}
+                    <a class="btn btn-danger btn-lg border rounded-pill" role="button"
+                        href="{% url 'pica:dashboard_pica' company.short_code %}">Back to
+                        previous</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section><!-- End: Topics -->
+{% endblock %}

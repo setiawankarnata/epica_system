@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Update User Activity{% endblock %}
+{% block content %}
+<div class="mt-3">
+    <div class="container shadow" style="background: var(--bs-cyan);">
+        <div class="row" style="background: #ffffff;">
+            <div class="col-sm-6 align-self-center">
+                <h4 style="text-align: left;">Update User Activity&nbsp;</h4>
+            </div>
+            <div class="col-sm-6 align-self-center">
+                <h4 class="text-end" style="text-align: left;">{{ usr.first_name }}&nbsp;{{ usr.last_name }}</h4>
+            </div>
+        </div>
+    </div>
+</div><!-- Start: Form -->
+<section>
+    <div>
+        <div class="container mt-5">
+            <form action="." method="post">
+                {% csrf_token %}
+                <div class="mt-3">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <h6>Date Activity</h6>
+                            <h6>{{ activity.activity_date|date:"l, d M Y" }}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-danger">{{ form.action_short_description.errors }}</div>
+                <div class="mt-2"><label for="{{ form.action_short_description.id_for_label }}"
+                        class="form-label fs-6">Short
+                        Description</label>{{ form.action_short_description }}</div>
+                <div class="text-danger">{{ form.action_description.errors }}</div>
+                <div class="mt-2"><label for="{{ form.action_description.id_for_label }}"
+                        class="form-label fs-6">Description</label>{{ form.action_description }}
+                </div>
+                <div>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button class="btn btn-primary border rounded-pill" type="submit" style="width: 100%;">
+                                Submit
+                            </button>
+                        </div>
+                        <div class="col"><a class="btn btn-danger border rounded-pill" role="button"
+                                style="width: 100%;"
+                                href="{% url 'pica:input_user_activity' topic.id usr.id %}">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section><!-- End: Form -->
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Register User{% endblock %}
+{% block content %}
+<section>
+    <div class="container border rounded mt-5"
+        style="width: 800px;border: 1px solid var(--bs-gray-500);box-shadow: 0px 0px;">
+        <div>
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col d-xl-flex">
+                        <h3>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                                viewBox="0 0 16 16" class="bi bi-person-circle">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z">
+                                </path>
+                            </svg>&nbsp;Edit Profile
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="post" enctype="multipart/form-data" action="{% url 'users:edit_profile' %}">
+            {% csrf_token %}
+            <div>
+                {% for error in form.non_field_errors %}
+                <div class="text-danger">
+                    <p>{{ error }} </p>
+                </div>
+                {% endfor %}
+            </div>
+            <div>
+                <div class="container">
+                    <div class="row mt-5">
+                        <div class="col-8 align-self-center">
+                            <div>
+                                <div class="row">
+                                    <div class="col-3"><label class="col-form-label fs-6">Username :&nbsp;</label></div>
+                                    <div class="col"><input class="form-control" type="text" name="username" disabled=""
+                                            style="width: 280px;" value="{{ request.user.username }}"></div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.first_name.errors }}</div>
+                                    <div class="col-3"><label for="{{ form.first_name.id_for_label }}"
+                                            class="col-form-label fs-6">First Name :&nbsp;</label>
+                                    </div>
+                                    <div class="col">{{ form.first_name }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.last_name.errors }}</div>
+                                    <div class="col-3 align-self-center"><label for="{{ form.last_name.id_for_label }}"
+                                            class="col-form-label fs-6">Last Name
+                                            :&nbsp;</label>
+                                    </div>
+                                    <div class="col">{{ form.last_name }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.email.errors }}</div>
+                                    <div class="col-3 align-self-center"><label for="{{ form.email.id_for_label }}"
+                                            class="col-form-label fs-6"><i
+                                                class="icon ion-ios-email fs-4"></i>&nbsp;Email :&nbsp;</label></div>
+                                    <div class="col">{{ form.email }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.gender.errors }}</div>
+                                    <div class="col-3 align-self-center"><label for="{{ form.gender.id_for_label }}"
+                                            class="col-form-label fs-6">Gender :&nbsp;</label>
+                                    </div>
+                                    <div class="col fs-6">
+                                        {{ form.gender }}
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.location.errors }}</div>
+                                    <div class="col-3 align-self-center"><label for="{{ form.location.id_for_label }}"
+                                            class="col-form-label fs-6">Location :&nbsp;</label>
+                                    </div>
+                                    <div class="col align-self-center">{{ form.location }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="text-danger fs-6">{{ form.mobile.errors }}</div>
+                                    <div class="col-3 align-self-center"><label for="{{ form.mobile.id_for_label }}"
+                                            class="col-form-label fs-6"><i
+                                                class="fa fa-mobile-phone fs-4"></i>&nbsp;Mobile :&nbsp;</label></div>
+                                    <div class="col">{{ form.mobile }}</div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col text-center mt-5 mb-5">
+                                        <button class="btn btn-primary border rounded-pill" type="submit">Save New
+                                            Profile
+                                        </button>
+                                    </div>
+                                    <div class="col text-center mt-5 mb-5"><a class="btn btn-danger border rounded-pill"
+                                            role="button" href="{% url 'home' %}">&nbsp;Cancel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="row">
+                                <div class="col">
+                                    <h4 class="text-center">Your photo</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col" style="height: 200px;">
+                                    {% if user.user2profile.photo.name != '' %}
+                                    <img class="rounded-circle" style="width: 100%;height: 100%;"
+                                        src="{{ user.user2profile.photo_url }}">
+                                    {% else %}
+                                    <img class="rounded-circle" style="width: 100%;height: 100%;"
+                                        src="{% static 'img/user-default.png' %}">
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col text-center mt-2 fs-6">{{ form.photo }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

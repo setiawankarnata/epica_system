@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}New Meeting{% endblock %}
+{% block content %}
+<section>
+    <div class="mt-3">
+        <div class="container shadow" style="background: var(--bs-cyan);">
+            <div class="row" style="background: #ffffff;">
+                <div class="col-sm-6 align-self-center">
+                    <h4 style="text-align: left;">Update MoM</h4>
+                </div>
+                <div class="col-sm-6" style="text-align: right;"><img src="{% static 'img/Logo/abb_logo.png' %}">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container justify-content-lg-center mt-5 mb-5">
+                <div class="row">
+                    {% if last_meets %}
+                    {% for last_meet in last_meets %}
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h6 class="card-title">{{ last_meet.meeting_date|date:"l, d M Y" }}</h6>
+                                <h6 class="text-muted card-subtitle mb-2">{{ last_meet.start_time | time:"g A" }}
+                                    - {{ last_meet.end_time | time:"g A" }} | {{ last_meet.location }} |
+                                    {{ last_meet.notulen }}</h6>
+                                {% if last_meet.meeting2topic.all %}
+                                {% for topic in last_meet.meeting2topic.all %}
+                                <p class="fs-6 card-text">{{ topic.topic_name }}
+                                    ({{ topic.topic2department.name }})</p>
+                                {% endfor %}
+                                {% else %}
+                                <p class="fs-6 card-text"><strong>No topic available.</strong></p>
+                                {% endif %}
+                                <div>
+                                    <div class="row">
+                                        <div class="col justify-content-lg-center"><a
+                                                class="btn btn-primary border rounded-pill" role="button"
+                                                href="{% url 'pica:dashboard_mom_detail' last_meet.pk %}"
+                                                style="width: 100%;">Edit</a></div>
+                                        <div class="col justify-content-lg-center"><a
+                                                class="btn btn-warning border rounded-pill" role="button"
+                                                href="{% url 'pica:preview_pdf' last_meet.pk %}"
+                                                style="width: 100%;">&nbsp;<i class="fa fa-file-pdf-o"></i>&nbsp;pdf</a>
+                                        </div>
+                                        <div class="col justify-content-lg-center"><a
+                                                class="btn btn-success border rounded-pill" role="button"
+                                                href="{% url 'pica:sending_pdf' last_meet.pk %}" style="width: 100%;">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                    fill="currentColor" viewBox="0 0 16 16" class="bi bi-envelope">
+                                                    <path fill-rule="evenodd"
+                                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z">
+                                                    </path>
+                                                </svg>&nbsp;Send</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col text-center"><a class="btn btn-danger btn-lg border rounded-pill" role="button"
+                    href="{% url 'home' %}">Back
+                    to Home</a></div>
+        </div>
+    </div>
+</section><!-- End: Distribution -->
+{% endblock %}

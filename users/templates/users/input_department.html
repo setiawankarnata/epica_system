@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Create Profile{% endblock %}
+{% block content %}
+    <div class="text-start d-flex justify-content-lg-center">
+        <div class="row mt-5" style="width: 700px;height: 350px;">
+            <div class="col d-flex justify-content-lg-center align-items-lg-center"
+                 style="background: var(--bs-gray-300);border: 1px solid var(--bs-gray-400) ;"><img class="img-fluid"
+                                                                                                    src="{% static 'img/Logo/ePicaLogo.png' %}"
+                                                                                                    style="width: 250px;height: 250px;"
+                                                                                                    alt="ePicaLogo">
+            </div>
+            <div class="col" style="border: 1px solid var(--bs-gray-400) ;">
+                <h2 class="mt-3 mb-2 m">Input Department</h2>
+                <form method="post" action="{% url 'users:input_department' %}">
+                    {% csrf_token %}
+                    <div>
+                        {% for error in form.non_field_errors %}
+                            <div class="text-danger">
+                                <p>{{ error }} </p>
+                            </div>
+                        {% endfor %}
+                        {% for field in form %}
+                            <div class="fieldWrapper">
+                                <div class="text-danger">
+                                    {{ field.errors }}
+                                </div>
+                                {{ field.label_tag }}
+                                {{ field }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <div class="row mt-3">
+                            <div class="col">
+                                <button class="btn btn-primary border rounded-pill mb-2" type="submit"
+                                        style="width: 100%;">
+                                    Submit
+                                </button>
+                            </div>
+                            <div class="col"><a class="btn btn-danger border rounded-pill" role="button"
+                                                style="width: 100%;" href="{% url 'home' %}">Cancel</a></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="container" style="width: 701px;">
+                <div class="row mt-5">
+                    <div class="col">
+                        <h1 class="fs-4 mt-3">List of Departments</h1>
+                        <div class="table-responsive text-start">
+                            <table class="table">
+                                <thead>
+
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for department in departments %}
+                                    <tr>
+                                        <td>{{ department.name }}</td>
+                                        <td>{{ department.description }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,131 @@
+{% load static %}
+{% if user.is_authenticated %}
+    <nav class="navbar navbar-dark navbar-expand-md textlight text-light d-flex"
+         style="background: var(--bs-success);border-width: 1px;">
+        <div class="container-fluid"><a class="navbar-brand" href="{% url 'home' %}">
+            <picture><img src="{% static 'img/Logo/ePicaLogo50.png' %}" alt="ePicaLogo"></picture>
+        </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav fs-6 text-white" style="color: rgb(255, 255, 255);">
+                    {% if user.is_superuser %}
+                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                                                         data-bs-toggle="dropdown" href="#">Meeting</a>
+                            <div class="dropdown-menu"><a class="dropdown-item"
+                                                          href="{% url 'pica:new_meeting' 'BRG' %}">BRG</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'pica:new_meeting' 'JAN' %}">JAN</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                                                         data-bs-toggle="dropdown" href="#">Update MoM</a>
+                            <div class="dropdown-menu"><a class="dropdown-item"
+                                                          href="{% url 'pica:dashboard_mom' 'BRG' %}">BRG</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'pica:dashboard_mom' 'JAN' %}">JAN</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                                                         data-bs-toggle="dropdown" href="#">Outstanding PICA&nbsp;</a>
+                            <div class="dropdown-menu"><a class="dropdown-item"
+                                                          href="{% url 'pica:dashboard_pica' 'BRG' %}">BRG</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'pica:dashboard_pica' 'JAN' %}">JAN</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="dropdown-toggle nav-link" aria-expanded="false"
+                               data-bs-toggle="dropdown" href="#">Reports&nbsp;</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item"
+                                   href="{% url 'pica:outstanding_all_pica' %}">All
+                                    PICA
+                                </a>
+                                <a class="dropdown-item"
+                                   href="{% url 'pica:search_topic' %}">Search
+                                    PICA
+                                </a>
+                                <a class="dropdown-item"
+                                   href="{% url 'pica:notify_topic' %}">Notify Expired Topics
+                                </a>
+                            </div>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'pica:user_activity' user.pk %}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                             viewBox="0 0 16 16" class="bi bi-list-task">
+                            <path fill-rule="evenodd"
+                                  d="M2 2.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5V3a.5.5 0 0 0-.5-.5H2zM3 3H2v1h1V3z">
+                            </path>
+                            <path
+                                    d="M5 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM5.5 7a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 4a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9z">
+                            </path>
+                            <path fill-rule="evenodd"
+                                  d="M1.5 7a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5V7zM2 7h1v1H2V7zm0 3.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5H2zm1 .5H2v1h1v-1z">
+                            </path>
+                        </svg>&nbsp;Activity</a></li>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                                                     data-bs-toggle="dropdown" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                             viewBox="0 0 16 16" class="bi bi-person-circle">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z">
+                            </path>
+                        </svg>&nbsp;Profile&nbsp;</a>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="{% url 'password_change' %}">Change
+                            Password</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'users:edit_profile' %}">Edit Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="fs-6 fw-bold text-white ms-auto navbar-text">{% now "l, d F Y" %}, <strong>{{ user }}</strong>
+                    {% if user.user2profile.photo.name != '' %}
+                        <picture><img class="border rounded-circle" src="{{ user.user2profile.photo_url }}" alt="."
+                                      style="width: 50px;height: 50px;"></picture>
+                    {% else %}
+                        <picture><img class="border rounded-circle" src="{% static 'img/user-default.png' %}" alt="b"
+                                      style="width: 50px;height: 50px;"></picture>
+                    {% endif %}
+            </span>
+            </div>
+        </div>
+    </nav>
+{% else %}
+    <nav class="navbar navbar-dark navbar-expand-md textlight text-light d-flex"
+         style="background: var(--bs-success);border-width: 1px;">
+        <div class="container-fluid"><a class="navbar-brand" href="#">
+            <picture><img src="{% static 'img/Logo/ePicaLogo50.png' %}" alt="ePica Logo"></picture>
+        </a>
+            <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span
+                    class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="navbar-nav fs-6 text-white" style="color: rgb(255, 255, 255);">
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false"
+                                                     data-bs-toggle="dropdown" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                             viewBox="0 0 16 16" class="bi bi-person-circle">
+                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                            <path fill-rule="evenodd"
+                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z">
+                            </path>
+                        </svg>&nbsp;Account&nbsp;</a>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="{% url 'users:register' %}">Signup</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                        </div>
+                    </li>
+                </ul>
+                <span class="fs-6 fw-bold text-white ms-auto navbar-text">{% now "l, d F Y" %} &nbsp;&nbsp;<picture>
+                    <img class="border rounded-circle" src="{% static 'img/user-default.png' %}"
+                         alt="photo user profile" style="width: 50px;height: 50px;">
+                </picture></span>
+            </div>
+        </div>
+    </nav>
+{% endif %}

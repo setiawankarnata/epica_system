@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Minutes of Meeting</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 1cm 1cm 1cm 1cm;
+
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Open Sans', sans-serif;">
+    <!-- Start: Header -->
+    <section>
+        <div>
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-3"><img src="{{ meet.meeting2company.logo.url }}" width="150px" height="100px">
+                    </div>
+                    <div class="col align-self-center">
+                        <h1 class="text-center"><strong>Assignment New Topic</strong>&nbsp</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End: Header -->
+    <section>
+        <div>
+            <div class="container">
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold">Meeting BOD
+                                            (date/time):
+                                        </td>
+                                        <td>{{ meet.meeting_date|date:"l, d F Y" }}/{{ meet.start_time|time:"G:i A" }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Issue Date:</td>
+                                        <td>{{ topiks.issue_date|date:"l, d F Y" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Due Date:</td>
+                                        <td>{{ topiks.due_date|date:"l, d F Y" }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">PIC:</td>
+                                        <td>
+                                            {% if topiks.topic2user %}
+                                            {% for pic in topiks.topic2user.all %}
+                                            {{ pic.first_name }} {{ pic.last_name }},
+                                            {% endfor %}
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col mt-3">
+                            <h5 class="fw-bold">Topic</h5>
+                            <p>{{ topiks.topic_name }}</p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr></tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="fw-bold">Department:</td>
+                                        <td>{{ topiks.topic2department.name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Problem Owner:</td>
+                                        <td>{{ topiks.topic2company.short_code }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">Status:</td>
+                                        <td>
+                                            {% if topiks.status == "O" %}
+                                            Open
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <h5 class="fw-bold">Problem/Info</h5>
+                        <p>{{ topiks.problem_info|safe }}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col mt-3">
+                        <h5 class="fw-bold">Action</h5>
+                        <p>{{ topiks.action|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+body {
+    font-size: 8pt;
+}
+
+#sign {
+    font-size: 16pt;
+!important;
+    font-weight: bold;
+!important;
+}
+
+#minutes {
+    font-size: 18pt;
+!important;
+    font-weight: bold;
+!important;
+}
+
+#participant {
+    font-size: 8pt;
+!important;
+}
+
+#signature {
+    break-before: page;
+}
+
+header div {
+    height: 3cm;
+    padding: 5mm 5mm 12mm 5mm;
+}
+
+header img {
+    width: 3cm;
+    margin-left: 10cm;
+}
+
+#logo_sign {
+    width: 3cm;
+    margin-left: 2cm;
+}

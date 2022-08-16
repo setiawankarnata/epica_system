@@ -1,0 +1,111 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Input External Participant{% endblock %}
+{% block content %}
+<div>
+    <div class="container border rounded mt-5"
+        style="width: 800px;border: 1px solid var(--bs-gray-500);box-shadow: 0px 0px;">
+        <div class="row">
+            <div class="col d-xl-flex">
+                <h3>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor"
+                        viewBox="0 0 16 16" class="bi bi-person-circle">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"></path>
+                        <path fill-rule="evenodd"
+                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z">
+                        </path>
+                    </svg>&nbsp;Input External Participant
+                </h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div>
+                        {% for error in form.non_field_errors %}
+                        <div class="text-danger">
+                            <p>{{ error }} </p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <div class="container">
+                            <div class="row mt-5">
+                                <div class="col-12 align-self-center">
+                                    <div>
+                                        <div class="row">
+                                            <div class="text-danger fs-6">{{ form.fullname.errors }}</div>
+                                            <div class="col-3 align-self-center"><label
+                                                    for="{{ form.fullname.id_for_label }}"
+                                                    class="col-form-label fs-6">&nbsp;Fullname
+                                                    :&nbsp;</label>
+                                            </div>
+                                            <div class="col">{{ form.fullname }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="text-danger fs-6">{{ form.email.errors }}</div>
+                                            <div class="col-3 align-self-center"><label
+                                                    for="{{ form.email.id_for_label }}" class="col-form-label fs-6"><i
+                                                        class="icon ion-ios-email-outline fs-4"></i>&nbsp;Email
+                                                    :&nbsp;</label>
+                                            </div>
+                                            <div class="col">{{ form.email }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="text-danger fs-6">{{ form.company_from.errors }}</div>
+                                            <div class="col-3 align-self-center"><label
+                                                    for="{{ form.company_from.id_for_label }}"
+                                                    class="col-form-label fs-6">&nbsp;Company
+                                                    :&nbsp;</label>
+                                            </div>
+                                            <div class="col">{{ form.company_from }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="text-danger fs-6">{{ form.mobile.errors }}</div>
+                                            <div class="col-3 align-self-center"><label
+                                                    for="{{ form.mobile.id_for_label }}" class="col-form-label fs-6">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                        fill="currentColor" viewBox="0 0 16 16"
+                                                        class="bi bi-phone fs-4">
+                                                        <path
+                                                            d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z">
+                                                        </path>
+                                                        <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"></path>
+                                                    </svg>&nbsp;Mobile :&nbsp;</label>
+                                            </div>
+                                            <div class="col">{{ form.mobile }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-3 align-self-center"><label class="col-form-label fs-6">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+                                                        fill="currentColor" viewBox="0 0 16 16"
+                                                        class="bi bi-person fs-4">
+                                                        <path
+                                                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z">
+                                                        </path>
+                                                    </svg>&nbsp;Photo :&nbsp;</label></div>
+                                            <div class="col">{{ form.photo }}</div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col text-center mt-5 mb-5">
+                                                <button class="btn btn-primary border rounded-pill" type="submit">
+                                                    Save Data
+                                                </button>
+                                            </div>
+                                            <div class="col text-center mt-5 mb-5"><a
+                                                    class="btn btn-danger border rounded-pill" role="button"
+                                                    href="{% url 'pica:input_outside_participant' meet.pk %}">&nbsp;Cancel</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

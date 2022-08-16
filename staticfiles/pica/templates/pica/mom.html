@@ -1,0 +1,176 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Minutes of Meeting</title>
+    <style>
+        @page {
+            size: A4 landscape;
+            margin: 1cm 1cm 1cm 1cm;
+
+            @bottom-center {
+                content: "Page " counter(page) " of " counter(pages);
+            }
+        }
+    </style>
+</head>
+
+<body style="font-family: 'Open Sans', sans-serif;">
+    <!-- Start: Header -->
+    <section>
+        <div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-3"><img src="{{ meet.meeting2company.logo.url }}" width="150px" height="50px">
+                    </div>
+                    <div class="col align-self-center">
+                        <h1 class="text-center" id="judul">Minutes of Meeting BOD&nbsp;</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End: Header -->
+    <!-- Start: Venue & Participant -->
+    <section>
+        <div>
+            <div class="container">
+                <div class="row mt-2" style="border-width: 2px;border-style: solid;">
+                    <div class="col-4 mt-3" style="border-style: none;">
+                        <div class="table-responsive mb-2">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Date/Time</td>
+                                        <td>{{ meet.meeting_date|date:"l, d F Y" }} / {{ meet.start_time|time:"G:i A" }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Notulen</td>
+                                        <td>{{ meet.notulen }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Location</td>
+                                        <td>{{ meet.location }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-8 mt-3">
+                        <h6>Participants</h6>
+                        <div class="row">
+                            {% if internal_participants %}
+                            {% for internal_participant in internal_participants %}
+                            <div class="col">
+                                <h6 id="participant">{{ internal_participant.first_name }}</h6>
+                                <span>
+                                    {{ internal_participant.last_name }},
+                                </span>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                            {% if outside_participants %}
+                            {% for outside_participant in outside_participants %}
+                            <div class="col">
+                                <h6 id="participant"> {{ outside_participant.fullname }}, </h6>
+                            </div>
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><!-- End: Venue & Participant -->
+    <section>
+        <div>
+            <div class="container">
+                <div class="table-responsive mt-2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Dept</th>
+                                <th>Problem Owner</th>
+                                <th>Topic</th>
+                                <th>Problem</th>
+                                <th>Action</th>
+                                <th>Due Date</th>
+                                <th>PIC</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if topiks %}
+                            {% for topik in topiks %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ topik.topic2department.name }}</td>
+                                <td>{{ topik.topic2company.short_code }}</td>
+                                <td>{{ topik.topic_name }}</td>
+                                <td>{{ topik.problem_info|safe }}</td>
+                                <td>{{ topik.action|safe }}</td>
+                                <td>{{ topik.due_date|date:"l, d M Y" }}</td>
+                                <td>
+                                    {% if topik.topic2user %}
+                                    {% for pic in topik.topic2user.all %}
+                                    {{ pic.first_name }} {{ pic.last_name }},
+                                    {% endfor %}
+                                    {% endif %}
+                                </td>
+                                {% if topik.status == "O" %}
+                                <td>Open</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="signature">
+        <div>
+            <div class="container">
+                <div class="row mt-5 mb-5">
+                    <div class="col-3"><img src="{{ meet.meeting2company.logo.url }}" width="150px" height="50px">
+                    </div>
+                    <div class="col align-self-center">
+                        <h3 class="text-center" id="judul">Lembar Pengesahan Meeting
+                            BOD <span>
+                                <h4>{{ meet.meeting_date|date:"l, d M Y" }}</h4>
+                            </span></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br><br><br><br><br>
+        <div>
+            <div class="container">
+                <div class="row mt-5 mb-5">
+                    {% if signatures %}
+                    {% for signature in signatures %}
+                    <div class="col-3 text-center">
+                        <h6>{{ signature.first_name }} {{ signature.last_name }}</h6>
+                        <hr>
+                        <h6>
+                            {% for title in signature.user2profile.profile2signature.all %}
+                            {% if title.company_code == cpy %}
+                            {{ title.position }}
+                            {% endif %}
+                            {% endfor %}
+                        </h6>
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section><!-- End: Signature -->
+</body>
+
+</html>

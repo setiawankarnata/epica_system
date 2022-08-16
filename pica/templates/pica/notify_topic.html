@@ -1,0 +1,96 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}Notify Expired Topics{% endblock %}
+{% block content %}
+    <div>
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col">
+                    <h3>Notify Expired Topics</h3>
+                </div>
+                <div class="col">
+                    <a class="btn btn-primary rounded-pill btn-lg" href="{% url 'pica:notify_all' %}">Notify All</a>
+                </div>
+            </div>
+        </div>
+    </div><!-- Start: Search and Back -->
+    <!-- Start: Tabel Employee -->
+    <section>
+        <div>
+            <div class="container mt-3">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="fs-6">Topics</th>
+                            <th class="fs-6">Company</th>
+                            <th class="fs-6">Issue Date</th>
+                            <th class="fs-6">Due Date</th>
+                            <th class="fs-6">Status</th>
+                            <th class="fs-6">Expired</th>
+                            <th class="fs-6">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if topiks %}
+                            {% for topik in topiks %}
+                                <tr class="fs-6">
+                                    <td>{{ topik.topic_name|truncatewords:5 }}</td>
+                                    <td>{{ topik.topic2company.short_code }}</td>
+                                    <td>{{ topik.issue_date|date:"l, d M Y" }}</td>
+                                    <td>{{ topik.due_date|date:"l, d M Y" }}</td>
+                                    {% if topik.status == "O" %}
+                                        <td>Open</td>
+                                    {% endif %}
+                                    <td>{{ topik.due_date|naturaltime }}</td>
+                                    <td><a class="btn btn-success btn-sm border rounded-pill" role="button"
+                                           href="{% url 'pica:dashboard_pica_detail' topik.pk topik.topic2company.short_code 3 %}">View</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section><!-- End: Tabel Employee -->
+    <section>
+        {% if topiks.has_other_pages %}
+            <div class="container">
+                <div class="row">
+                    <div
+                            class="col d-flex justify-content-center align-items-center justify-content-lg-center align-items-lg-center mt-5">
+                        <nav class="fs-5 text-dark">
+                            <ul class="pagination">
+                                {% if topiks.has_previous %}
+                                    <li class="page-item"><a class="page-link" aria-label="Previous"
+                                                             href="?page={{ topiks.previous_page_number }}"><span
+                                            aria-hidden="true">«</span></a>
+                                    </li>
+                                {% endif %}
+                                {% for page in paginator.page_range %}
+                                    {% if page == topiks.number %}
+                                        <li class="page-item"><a class="page-link selected bg-black text-white"
+                                                                 href="?page={{ page }}">{{ page }}</a></li>
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link"
+                                                                 href="?page={{ page }}">{{ page }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                                {% if topiks.has_next %}
+                                    <li class="page-item"><a class="page-link" aria-label="Next"
+                                                             href="?page={{ topiks.next_page_number }}"><span
+                                            aria-hidden="true">»</span></a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %}

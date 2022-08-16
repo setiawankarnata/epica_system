@@ -1,0 +1,41 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Delete Topic{% endblock %}
+{% block content %}
+<div class="text-start d-flex justify-content-lg-center">
+    <div class="row mt-5" style="width: 700px;height: 200px;">
+        <div class="col-4 d-flex justify-content-lg-center align-items-lg-center"
+            style="background: var(--bs-gray-300);border: 1px solid var(--bs-gray-400) ;"><img class="img-fluid"
+                src="{% static 'img/Logo/ePicaLogo.png' %}" style="width: 150px;height: 150px;" alt="ePicaLogo">
+        </div>
+        <div class="col-8" style="border: 1px solid var(--bs-gray-400) ;">
+            <h3 class="text-center mt-3 mb-2 m">Delete confirmation</h3>
+            <div>
+                <form method="post" action=".">
+                    {% csrf_token %}
+                    <p class="lead fw-normal text-dark mt-1">Are you sure want to delete
+                        topic: "{{ topic.topic_name }}"
+                        in Meeting BOD at {{ meet.meeting_date|date:"l, d M Y" }} ?</p>
+                    <div class="row text-center mt-4">
+                        <div class="col">
+                            <button class="btn btn-primary border rounded-pill" type="submit" style="width: 100%;">
+                                Delete
+                            </button>
+                        </div>
+                        <div class="col">
+                            {% if fr == "DS" %}
+                            <a class="btn btn-danger border rounded-pill" role="button" style="width: 98%;"
+                                href="{% url 'pica:dashboard_mom_detail' meet.pk %}">Cancel</a>
+                            {% else %}
+                            <a class="btn btn-danger border rounded-pill" role="button" style="width: 98%;"
+                                href="{% url 'pica:meeting_detail' meet.pk %}">Cancel</a>
+                            {% endif %}
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

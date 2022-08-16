@@ -1,0 +1,18 @@
+<body>
+    <div>
+        <div class="container mt-5">
+            <h3>Dear Mr/Mrs. <strong>{{ name.first_name }} {{ name.last_name }},</strong></h3>
+            <p>Please pay attention to the following outstanding topics:</p>
+            {% for topic in topics %}
+            <ol>
+            <li>{{ topic.topic_name }}</li>
+            </ol>
+            {% endfor %}
+            <p>Please update your progress in ePica system.</p>
+            <p>Thank you for your kind attention.</p>
+            <br><br>
+            <p class="lead fw-bold">Regards,</p>
+            <p class="lead fw-bold"><strong>CPMD Division</strong></p>
+        </div>
+    </div>
+</body>

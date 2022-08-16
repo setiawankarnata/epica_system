@@ -1,0 +1,121 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}New Meeting{% endblock %}
+{% block content %}
+<div class="mt-3">
+    <div class="container shadow" style="background: var(--bs-cyan);">
+        <div class="row" style="background: #ffffff;">
+            <div class="col-sm-6 align-self-center">
+                <h4 style="text-align: left;">Input Data Meeting ({{ company.short_code }})</h4>
+            </div>
+            {% if company.short_code != "OTH" %}
+            <div class="col-sm-6" style="text-align: right;"><img src="{{ company.logo.url }}" width="150px">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<section>
+    <div class="mt-3">
+        <div class="container d-flex justify-content-center">
+            <div class="row" style="width: 600px;">
+                <div class="col">
+                    <form method="post" action="{% url 'pica:new_meeting' company.short_code %}">
+                        {% csrf_token %}
+                        <div>
+                            {% for error in form.non_field_errors %}
+                            <div class="text-danger">
+                                <p>{{ error }} </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="text-danger">{{ form.meeting_date.errors }}</div>
+                        <div class="mt-2"><label class="form-label fs-6"
+                                for="{{ form.meeting_date.id_for_label }}">Meeting
+                                Date</label>{{ form.meeting_date }}</div>
+                        <div class="text-danger">{{ form.start_time.errors }}</div>
+                        <div class="mt-2"><label class="form-label fs-6" for="{{ form.start_time.id_for_label }}">Start
+                                Time</label>{{ form.start_time }}</div>
+                        <div class="text-danger">{{ form.end_time.errors }}</div>
+                        <div class="mt-2"><label class="form-label fs-6" for="{{ form.end_time.id_for_label }}">End
+                                Time</label>{{ form.end_time }}</div>
+                        <div class="text-danger">{{ form.notulen.errors }}</div>
+                        <div class="mt-2"><label class="form-label fs-6"
+                                for="{{ form.notulen.id_for_label }}">Notulen</label>{{ form.notulen }}
+                        </div>
+                        <div class="text-danger">{{ form.location.errors }}</div>
+                        <div class="mt-2"><label class="form-label fs-6"
+                                for="{{ form.location.id_for_label }}">Location/Media</label>{{ form.location }}
+                        </div>
+                        <div>
+                            <div class="row mt-3">
+                                <div class="col">
+                                    <button class="btn btn-primary border rounded-pill" type="submit"
+                                        style="width: 100%;">Submit
+                                    </button>
+                                </div>
+                                <div class="col"><a class="btn btn-danger border rounded-pill" role="button"
+                                        style="width: 100%;" href="{% url 'home' %}">Cancel</a></div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div>
+    <div class="container d-flex justify-content-lg-center">
+        <div class="row" style="width: 600px;">
+            <div class="col">
+                {% if incoming_meets %}
+                <h3 class="text-center mt-5 mb-3">Incoming Meeting</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<section>
+    <div>
+        <div class="container d-flex justify-content-lg-center">
+            <div class="row" style="width: 600px;">
+                {% if incoming_meets %}
+                {% for incoming_meet in incoming_meets %}
+                <div class="col-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">{{ incoming_meet.meeting_date | date:"l, d F Y" }}</h6>
+                            <h6 class="text-muted card-subtitle mb-2">{{ incoming_meet.start_time|time:"G:i" }}
+                                - {{ incoming_meet.end_time|time:"G:i" }} | {{ incoming_meet.location }}
+                                |
+                                {{ incoming_meet.notulen }}</h6>
+                            {% if incoming_meet.meeting2topic.all %}
+                            {% for topic in incoming_meet.meeting2topic.all %}
+                            <p class="fs-6 card-text"><strong>{{ topic.topic_name }}
+                                    ({{ topic.topic2department.name }})</strong></p>
+                            {% endfor %}
+                            {% else %}
+                            <p class="fs-6 card-text"><strong>No topic available.</strong></p>
+                            {% endif %}
+                            <div>
+                                <div class="row">
+                                    <div class="col justify-content-lg-center"><a
+                                            class="btn btn-info border rounded-pill" role="button"
+                                            href="{% url 'pica:meeting_detail' incoming_meet.pk %}"
+                                            style="width: 100%;">Details</a></div>
+                                    <div class="col justify-content-lg-center"><a
+                                            class="btn btn-danger border rounded-pill" role="button"
+                                            href="{% url 'pica:delete_meeting' incoming_meet.pk incoming_meet.meeting2company.short_code %}"
+                                            style="width: 100%;">Delete</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
